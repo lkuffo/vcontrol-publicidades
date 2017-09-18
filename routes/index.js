@@ -36,7 +36,7 @@ router.post('/user', function(req, res, next) {
     }
   });
 
-  res.redirect('/user?success=1');
+  res.render('user', { user: "", message: "Usuario creado exitosamente" });
 });
 
 /* GET Lista de usuarios. */
