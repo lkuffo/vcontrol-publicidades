@@ -50,9 +50,29 @@ nav{
     background-color: #333333 !important;
 }
 
+
+
 .navbar-nav>li>a{
     color: white !important;
     font-size: 14px;
+}
+
+.navbar-right {
+    margin: 0;
+    padding: 0;
+    background-color: #333;
+}
+
+.navbar-right .login li {
+    float: left;
+}
+
+.navbar-right .login li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
 }
 
 .align-center {

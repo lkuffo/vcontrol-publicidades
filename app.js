@@ -22,7 +22,8 @@ passport.use(new Strategy(
       if (!user) {
         return done(null, false, { message: 'Incorrect username.' });
       }
-      if (user.password != password) {
+      //if (user.password != password) {
+      if (!user.validPassword(password)) {
         return done(null, false, { message: 'Incorrect password.' });
       }
       return done(null, user);
@@ -93,7 +94,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Define routes
 app.use('/', require('./routes/index'));
+app.use('/user', require('./routes/index'));
+app.use('/users', require('./routes/index'));
 app.use('/api/publicidad', require('./routes/publicidad'));
+app.use('/api/users', require('./routes/user'));
 app.use('/imagen', require('./routes/imagen'));
 
 // catch 404 and forward to error handler
@@ -112,6 +116,11 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+});
+
+app.use(function(req, res, next) {
+  res.locals.user = req.session.user;
+  next();
 });
 
 module.exports = app;

@@ -12,15 +12,21 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
+              <% if (user) { %>
             <li><a href="/publicidad" >Inicio <span class="sr-only"></span></a></li>
+            <% }  %>
             <li><a href="http://sinergiass.com/" >Sinergia S.S.<span class="sr-only"></span></a></li>
             <li><a href="/" >Google Play Store<span class="sr-only"></span></a></li>
+            <% if (user) { %>
+            <li><a href="/users" >Usuarios<span class="sr-only"></span></a></li>
+            <% }  %>
           </ul>
 
           <ul class="nav navbar-nav navbar-right">
              <% if (!user) { %>
-              <li >
-                <a href="/login" >Inicia sesión</a>
+              <li class="login">
+              <li><a href="/login" >Inicia sesión</a></li>
+              <li><a href="/user" >Registrarse</a></li>
               </li>
             <% } else { %>
             <li class="dropdown">

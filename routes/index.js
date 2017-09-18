@@ -2,6 +2,7 @@ const  express = require('express');
 const  passport = require('passport');
 const  User = require('../models/User');
 const  router = express.Router();
+const  bcrypt = require('bcrypt')
 var path = require('path');
 var fs = require('fs');
 var uid = require('uid2');
@@ -10,9 +11,37 @@ var TARGET_PATH = path.resolve(__dirname, '../uploads/');
 var IMAGE_TYPES = ['image/jpeg', 'image/png'];
 const  Publicidad = require('../models/Publicidad');
 
+const saltRounds = 10;
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.redirect('/login');
+});
+
+/* GET new user page. */
+router.get('/user', function(req, res, next) {
+  res.render('user', { user: "" });
+});
+
+router.post('/user', function(req, res, next) {
+  var password = req.body.password;
+
+  var user = new User();
+  user.correo = req.body.username;
+  user.password = user.generateHash(password);
+
+  user.save(function(err){
+    if (err){
+        return handleError(err);
+    }
+  });
+
+  res.render('user', { user: "", message: "Usuario creado exitosamente" });
+});
+
+/* GET Lista de usuarios. */
+router.get('/users', function(req, res, next) {
+  res.render('users', { user: req.user });
 });
 
 
